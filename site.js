@@ -77,29 +77,58 @@ function pressable(el, fn) {
   });
 }
 
-/* ---------- entrada com stagger ---------- */
+/* ---------- entrada com stagger ----------
+   Sem IntersectionObserver: o observer pode nunca entregar notificações
+   (aba em segundo plano, motores travados) e o conteúdo sumiria. Aqui a
+   checagem é por scroll + getBoundingClientRect, com a primeira passada
+   síncrona. O stagger é feito em JS, não com animation-delay. */
 function initReveal() {
   if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-  const alvos = [];
-  document.querySelectorAll(".hero > *").forEach((el, i) => {
-    el.style.setProperty("--i", i); alvos.push(el);
-  });
-  document.querySelectorAll(".grid .card").forEach((el, i) => {
-    el.style.setProperty("--i", i % 4); alvos.push(el);
-  });
-  document.querySelectorAll(".plan").forEach((el, i) => {
-    el.style.setProperty("--i", i); alvos.push(el);
-  });
-  document.querySelectorAll(".incl-card").forEach((el, i) => {
-    el.style.setProperty("--i", i % 2); alvos.push(el);
-  });
-  document.querySelectorAll(".panel, .tabs, .buy, .closing").forEach(el => alvos.push(el));
-  const io = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
+
+  const pendentes = [...document.querySelectorAll(
+    ".hero > *, .grid .card, .plan, .incl-card, .panel, .tabs, .buy, .closing"
+  )].filter(el => !el.closest(".tabpane")); // aba inativa é display:none: nunca
+                                            // entraria na tela e ficaria oculta
+                                            // para sempre (a aba já tem fadeUp)
+  pendentes.forEach(el => el.classList.add("oculto"));
+
+  const checar = () => {
+    const naTela = pendentes.filter(el => {
+      const r = el.getBoundingClientRect();
+      return r.top < innerHeight - 40 && r.bottom > 0;
     });
-  }, { threshold: .12, rootMargin: "0px 0px -30px" });
-  alvos.forEach(el => { el.classList.add("reveal"); io.observe(el); });
+    naTela.forEach((el, i) => {
+      pendentes.splice(pendentes.indexOf(el), 1);
+      setTimeout(() => {
+        el.classList.remove("oculto");  // volta ao opacity padrão (1)
+        el.classList.add("revelar");    // a animação faz o fade + slide
+      }, i * 70);
+    });
+    if (!pendentes.length) {
+      removeEventListener("scroll", agendar);
+      removeEventListener("resize", agendar);
+    }
+  };
+
+  // throttle por tempo com trailing edge, chamando checar() direto — sem
+  // requestAnimationFrame, que pode não rodar e deixaria tudo abaixo da
+  // dobra invisível. O trailing garante a checagem após o último scroll.
+  let ultimo = 0, timer = null;
+  const agendar = () => {
+    const resta = 80 - (Date.now() - ultimo);
+    if (resta <= 0) {
+      ultimo = Date.now();
+      checar();
+    } else if (!timer) {
+      timer = setTimeout(() => {
+        timer = null; ultimo = Date.now(); checar();
+      }, resta);
+    }
+  };
+
+  addEventListener("scroll", agendar, { passive: true });
+  addEventListener("resize", agendar);
+  checar();
 }
 
 /* ---------- nav: link ativo, scrolled, hamburger, ⌘K ---------- */

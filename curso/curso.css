@@ -12,6 +12,8 @@
 .crumbs .here{color:var(--text);font-weight:600}
 
 .cols{display:grid;grid-template-columns:1fr 380px;gap:26px;align-items:start}
+/* sem isso, o min-content das abas (que rolam) infla a coluna e estoura a tela */
+.cols>*{min-width:0}
 
 /* topo do produto */
 .prod{display:grid;grid-template-columns:190px 1fr;gap:26px;padding:26px}
@@ -189,9 +191,19 @@
   body.has-buybar .footer{padding-bottom:64px}
 }
 @media(max-width:680px){
-  .tabs{overflow-x:auto;scrollbar-width:none}
+  .tabs{overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
   .tabs::-webkit-scrollbar{display:none}
-  .tab{flex:none}
+  .tab{flex:none;padding:11px 16px;font-size:14px}
+  .page{padding:0 16px}
+  .perks{gap:14px 20px;padding:16px 20px}
+  .perk{font-size:13px}
+  .bump{padding:16px 20px;gap:14px}
+  .bump .info{flex:1 1 60%;min-width:0}
+  .bump .pr{text-align:left}
+  .bump-total{padding:16px 20px}
+  .buy{padding:20px}
+  .teacher{gap:14px}
+  .teacher .ava{width:56px;height:56px;font-size:24px;border-radius:var(--radius)}
   .mod{padding:16px 18px}
   .mod .num{width:34px;height:34px}
   .mod-body .pad{padding:0 18px 18px}

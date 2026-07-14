@@ -109,9 +109,29 @@
     .grid{grid-template-columns:repeat(2,1fr);gap:14px}
     .hero{padding-top:30px}
   }
+  @media(max-width:680px){
+    .search-big{padding:14px 16px;font-size:14px}
+    .layout{padding:0 16px}
+  }
+  /* celular: card vira linha horizontal — menos rolagem, capa continua em destaque */
   @media(max-width:480px){
-    .grid{grid-template-columns:1fr}
-    .main-head{flex-wrap:wrap}
+    .grid{grid-template-columns:1fr;gap:12px}
+    .card{flex-direction:row}
+    .card .thumb{
+      width:116px;flex:none;aspect-ratio:auto;
+      border-bottom:none;border-right:1px solid var(--hair);
+    }
+    .card .thumb img{padding:10px}
+    .card-body{padding:14px}
+    .card-title{font-size:14px}
+    .instructor{margin-top:6px}
+    .pills{margin-top:8px;gap:6px}
+    .pills .pill{font-size:11px;padding:4px 9px}
+    .card-foot{padding-top:12px}
+    .price{font-size:17px}
+    .btn-ver{padding:6px 12px;font-size:12px}
+    .main-head{flex-wrap:wrap;gap:10px}
+    .main-head .showing{font-size:13px}
   }
 </style>
 </head>
