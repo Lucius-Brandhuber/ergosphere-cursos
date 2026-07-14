@@ -133,5 +133,91 @@ body::before{
 }
 .card:hover .btn-ver{background:var(--gold-wash);border-color:rgba(200,168,106,.4);color:var(--gold-bright)}
 
+/* ===== Compre Junto (order bump) ===== */
+.bump{
+  display:flex;align-items:center;gap:16px;
+  padding:16px 26px;border-top:1px solid var(--hair);
+  cursor:pointer;transition:background .18s;
+}
+.bump:hover{background:var(--plate-2)}
+.bump.on{background:var(--gold-wash)}
+.bump .box{
+  width:22px;height:22px;border-radius:6px;flex:none;
+  border:1.5px solid var(--hair-strong);
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;color:var(--void);transition:.18s;
+}
+.bump.on .box{background:var(--gold);border-color:var(--gold)}
+.bump.on .box::after{content:"✓";font-weight:800}
+.bump .mini{
+  width:66px;height:80px;border-radius:8px;flex:none;overflow:hidden;
+  background:
+    radial-gradient(50px 40px at 50% 45%, rgba(200,168,106,.14), transparent 72%),
+    var(--plate-inset);
+  border:1px solid var(--hair);
+  display:flex;align-items:center;justify-content:center;
+  position:relative;
+}
+.bump .mini img{width:100%;height:100%;object-fit:contain;padding:5px}
+/* placeholder do disco de acreção enquanto a capa não existe */
+.bump .mini .ph{
+  display:none;
+  width:26px;height:26px;border-radius:50%;opacity:.65;position:relative;
+  background:conic-gradient(rgba(0,0,0,0) 0%, var(--gold-dim) 30%, var(--gold-bright) 47%, var(--gold) 58%, rgba(0,0,0,0) 92%);
+}
+.bump .mini .ph::after{content:"";position:absolute;inset:4px;border-radius:50%;background:var(--plate-inset)}
+.bump .mini.noimg img{display:none}
+.bump .mini.noimg .ph{display:block}
+.bump .info .n{font-size:15px;font-weight:700}
+.bump .info .d{color:var(--muted);font-size:13px;margin-top:4px;line-height:1.45;max-width:46ch}
+.bump .pr{margin-left:auto;text-align:right;flex:none}
+.bump .pr .v{font-size:18px;font-weight:800;color:var(--gold-bright)}
+.bump .pr .l{font-size:11px;color:var(--muted);margin-top:2px}
+
+.bump-total{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:18px 26px;border-top:1px solid var(--hair);background:var(--plate-inset);
+}
+.bump-total .lbl{color:var(--text-2);font-size:14px}
+.bump-total .val{font-size:22px;font-weight:800;color:var(--gold-bright)}
+
+/* ===== FAQ ===== */
+.faq{
+  border:1px solid var(--hair);border-radius:14px;
+  margin-bottom:12px;overflow:hidden;transition:border-color .2s;
+}
+.faq.open{border-color:rgba(200,168,106,.55)}
+.faq-q{
+  display:flex;align-items:center;gap:16px;padding:18px 20px;
+  cursor:pointer;transition:background .18s;
+}
+.faq-q:hover{background:var(--plate-2)}
+.faq.open .faq-q{background:var(--gold-wash)}
+.faq-q .n{
+  width:40px;height:40px;border-radius:9px;flex:none;
+  background:var(--plate-inset);border:1px solid var(--hair);
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;font-weight:700;color:var(--muted);
+}
+.faq.open .faq-q .n{background:var(--gold-wash);border-color:rgba(200,168,106,.4);color:var(--gold-bright)}
+.faq-q .t{font-size:16px;font-weight:500}
+.faq-q .c{margin-left:auto;color:var(--muted);transition:transform .22s var(--ease)}
+.faq.open .faq-q .c{transform:rotate(180deg);color:var(--gold)}
+.faq-a{display:none;padding:4px 20px 20px 76px;color:var(--text-2);font-size:14px;line-height:1.65}
+.faq.open .faq-a{display:block}
+
+/* ===== texto longo (Descrição) ===== */
+.prose{max-width:78ch;margin-top:20px}
+.prose p{color:var(--text-2);line-height:1.75;font-size:15px;margin-bottom:16px}
+.prose h3{
+  font-size:17px;font-weight:700;color:var(--text);
+  margin:28px 0 12px;padding-left:12px;border-left:3px solid var(--gold);
+}
+.prose h4{font-size:15px;font-weight:600;color:var(--gold-bright);margin:20px 0 8px}
+
 @media(max-width:1080px){ .nav-links{display:none} }
-@media(max-width:680px){ .search-mini{display:none} }
+@media(max-width:680px){
+  .search-mini{display:none}
+  .bump{flex-wrap:wrap}
+  .bump .pr{margin-left:0}
+}
