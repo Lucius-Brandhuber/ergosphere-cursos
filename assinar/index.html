@@ -3,51 +3,47 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Assinatura Ergosphere: acesso ilimitado a todos os cursos de marketing digital a partir de R$ 19,00/mês. Novos cursos todo mês.">
+<meta name="theme-color" content="#08080B">
+<meta property="og:title" content="Assinatura — Ergosphere">
+<meta property="og:description" content="Acesso ilimitado a todos os cursos a partir de R$ 19,00/mês.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
 <title>Assinatura — Ergosphere</title>
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../styles.css">
 <style>
   .page{max-width:1240px;margin:0 auto 90px;padding:0 24px}
-
-  /* hero */
-  .hero{text-align:center;padding:40px 0 10px}
-  .crown-badge{
-    display:inline-flex;align-items:center;gap:9px;
-    background:var(--gold-wash);border:1px solid rgba(200,168,106,.3);
-    border-radius:999px;padding:8px 18px;
-    font-size:13px;font-weight:700;letter-spacing:1.2px;color:var(--gold-bright);
-  }
-  .hero h1{font-size:48px;font-weight:800;letter-spacing:-1.6px;margin:26px 0 0;line-height:1.1}
-  .hero h1 .accent{
-    background:linear-gradient(var(--gold-bright),var(--gold-dim));
-    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
-  }
-  .hero p{color:var(--text-2);margin:16px auto 0;font-size:17px;max-width:56ch;line-height:1.5}
+  .page .panel{margin:56px 0 0}
 
   .facts{
     display:inline-flex;align-items:center;gap:0;margin-top:30px;
-    background:var(--gold-wash);border:1px solid rgba(200,168,106,.28);
+    background:var(--gold-wash);border:1px solid var(--gold-border);
     border-radius:999px;padding:12px 8px;
   }
   .facts span{display:flex;align-items:center;gap:8px;padding:0 20px;font-size:15px;color:var(--gold-bright)}
-  .facts span + span{border-left:1px solid rgba(200,168,106,.28)}
+  .facts span + span{border-left:1px solid var(--gold-border)}
 
   /* planos */
   .plans{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:56px;align-items:start}
   .plan{
     background:var(--plate);border:1px solid var(--hair);
-    border-radius:18px;padding:30px 26px;position:relative;
+    border-radius:var(--radius-xl);padding:30px 26px;position:relative;
     display:flex;flex-direction:column;
+    transition:transform .25s var(--ease),border-color .25s,box-shadow .3s var(--ease);
   }
+  .plan:hover{transform:translateY(-4px);border-color:var(--gold-border);box-shadow:0 18px 40px rgba(0,0,0,.4)}
   .plan.pop{
-    border-color:rgba(200,168,106,.5);
+    border-color:var(--gold-border-strong);
     background:
-      radial-gradient(320px 200px at 50% 0, rgba(200,168,106,.12), transparent 72%),
+      radial-gradient(320px 200px at 50% 0, var(--gold-wash), transparent 72%),
       var(--plate);
-    box-shadow:0 0 0 1px rgba(200,168,106,.12), 0 20px 50px rgba(0,0,0,.5);
+    box-shadow:0 0 0 1px var(--gold-wash), var(--shadow-pop);
   }
+  .plan.pop:hover{transform:translateY(-4px);box-shadow:0 0 0 1px var(--gold-border), var(--shadow-pop)}
   .tag-pop{
     position:absolute;top:-13px;left:50%;transform:translateX(-50%);
     background:linear-gradient(var(--gold-bright),var(--gold) 55%,var(--gold-dim));
@@ -66,10 +62,10 @@
   .marks{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-top:16px}
   .mark{
     font-size:12px;font-weight:700;border-radius:999px;padding:5px 12px;
-    background:var(--gold-wash);border:1px solid rgba(200,168,106,.35);color:var(--gold-bright);
+    background:var(--gold-wash);border:1px solid var(--gold-border);color:var(--gold-bright);
   }
   .mark.save{
-    background:rgba(52,199,89,.10);border-color:rgba(52,199,89,.3);color:var(--good-text);
+    background:var(--good-wash);border-color:var(--good-border);color:var(--good-text);
   }
 
   .feats{list-style:none;margin:26px 0 0;padding-top:24px;border-top:1px solid var(--hair);flex:1}
@@ -79,27 +75,24 @@
   .plan .btn-gold,.plan .btn-ghost{width:100%;margin-top:26px;padding:14px;border-radius:12px;font-size:15px}
 
   /* incluso */
-  .panel{background:var(--plate);border:1px solid var(--hair);border-radius:18px;margin-top:56px;overflow:hidden}
-  .panel-head{display:flex;align-items:center;gap:14px;padding:24px 26px;border-bottom:1px solid var(--hair)}
-  .panel-head .ico{
-    width:42px;height:42px;border-radius:12px;flex:none;
-    background:var(--gold-wash);border:1px solid rgba(200,168,106,.25);
-    display:flex;align-items:center;justify-content:center;font-size:18px;
-  }
-  .panel-head h2{font-size:20px;font-weight:700}
   .incl-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;padding:26px}
   .incl-card{
     display:flex;gap:16px;align-items:flex-start;
     background:var(--plate-inset);border:1px solid var(--hair);
-    border-radius:14px;padding:20px;
+    border-radius:var(--radius-lg);padding:20px;
+    transition:border-color .2s;
   }
+  .incl-card:hover{border-color:var(--gold-border)}
   .incl-card .i{
-    width:40px;height:40px;border-radius:10px;flex:none;
-    background:var(--gold-wash);border:1px solid rgba(200,168,106,.25);
+    width:40px;height:40px;border-radius:var(--radius);flex:none;color:var(--gold-bright);
+    background:var(--gold-wash);border:1px solid var(--gold-border);
     display:flex;align-items:center;justify-content:center;font-size:17px;
   }
   .incl-card .t{font-size:16px;font-weight:700}
   .incl-card .d{color:var(--muted);font-size:14px;margin-top:5px;line-height:1.5}
+
+  .panel-head{display:flex;align-items:center;gap:14px;padding:24px 26px;border-bottom:1px solid var(--hair)}
+  .panel-head h2{font-size:20px;font-weight:700}
 
   /* fecho */
   .closing{text-align:center;margin-top:50px}
@@ -107,11 +100,11 @@
   .closing .btn-ghost{display:inline-flex;margin-top:18px;padding:13px 26px}
 
   @media(max-width:960px){
-    .plans{grid-template-columns:1fr}
+    .plans{grid-template-columns:1fr;margin-top:44px}
+    .plan.pop{order:-1}
     .incl-grid{grid-template-columns:1fr}
-    .facts{flex-direction:column;border-radius:18px;gap:10px}
-    .facts span + span{border-left:none;border-top:1px solid rgba(200,168,106,.28);padding-top:10px}
-    .hero h1{font-size:34px}
+    .facts{flex-direction:column;border-radius:var(--radius-xl);gap:10px;padding:14px 8px}
+    .facts span + span{border-left:none;border-top:1px solid var(--gold-border);padding-top:10px}
   }
 </style>
 </head>
@@ -129,8 +122,8 @@
       <a href="./">Assinar</a>
     </div>
     <div class="nav-right">
-      <div class="search-mini">🔍 Buscar... <span class="kbd">⌘K</span></div>
-      <div class="cart">🛒</div>
+      <div class="search-mini"><span class="ic" data-ic="search"></span> Buscar... <span class="kbd">⌘K</span></div>
+      <a href="#" class="cart" aria-label="Carrinho"><span class="ic" data-ic="cart"></span></a>
       <a href="#" class="btn-gold">Entrar →</a>
     </div>
   </nav>
@@ -139,13 +132,13 @@
 <div class="page">
 
   <section class="hero">
-    <div class="crown-badge">👑 ASSINATURA ERGOSPHERE</div>
+    <div class="badge caps"><span class="ic" data-ic="crown"></span> ASSINATURA ERGOSPHERE</div>
     <h1>Acesso <span class="accent">ilimitado</span> a todos os cursos</h1>
     <p>Escolha o plano ideal e tenha acesso a toda a nossa biblioteca, incluindo novos cursos adicionados.</p>
     <div class="facts">
-      <span>▶ Catálogo completo</span>
-      <span>↗ Novos todo mês</span>
-      <span>✦ Acesso imediato</span>
+      <span><span class="ic" data-ic="play"></span> Catálogo completo</span>
+      <span><span class="ic" data-ic="trend"></span> Novos todo mês</span>
+      <span><span class="ic" data-ic="zap"></span> Acesso imediato</span>
     </div>
   </section>
 
@@ -190,7 +183,7 @@
         <li><span class="ck">✓</span> Acesso antecipado a novos cursos</li>
         <li><span class="ck">✓</span> Menos renovações, mais tranquilidade</li>
       </ul>
-      <a href="#" class="btn-gold">→ Quero economizar</a>
+      <a href="#" class="btn-gold shine-auto">→ Quero economizar</a>
     </div>
 
     <!-- Anual -->
@@ -219,12 +212,12 @@
   <!-- INCLUSO -->
   <div class="panel">
     <div class="panel-head">
-      <div class="ico">★</div>
+      <div class="sec-ico"><span class="ic" data-ic="star"></span></div>
       <h2>Incluso na sua assinatura</h2>
     </div>
     <div class="incl-grid">
       <div class="incl-card">
-        <div class="i">📖</div>
+        <div class="i"><span class="ic" data-ic="book"></span></div>
         <div>
           <div class="t">Todos os Cursos</div>
           <div class="d">Acesse toda a biblioteca de cursos da plataforma</div>
@@ -238,14 +231,14 @@
         </div>
       </div>
       <div class="incl-card">
-        <div class="i">⚡</div>
+        <div class="i"><span class="ic" data-ic="zap"></span></div>
         <div>
           <div class="t">Novos Conteúdos</div>
           <div class="d">Cursos adicionados automaticamente ao seu acesso</div>
         </div>
       </div>
       <div class="incl-card">
-        <div class="i">🛡</div>
+        <div class="i"><span class="ic" data-ic="shield"></span></div>
         <div>
           <div class="t">Compras Mantidas</div>
           <div class="d">Cursos comprados individualmente são preservados</div>
@@ -257,7 +250,7 @@
   <!-- FAQ -->
   <div class="panel">
     <div class="panel-head">
-      <div class="ico">❓</div>
+      <div class="sec-ico"><span class="ic" data-ic="question"></span></div>
       <h2>Perguntas Frequentes</h2>
     </div>
     <div style="padding:26px" id="faqs"></div>
@@ -265,13 +258,15 @@
 
   <div class="closing">
     <p>Ainda com dúvidas? Explore nosso catálogo antes de decidir.</p>
-    <a href="../index.html" class="btn-ghost">📖 Ver Cursos</a>
+    <a href="../index.html" class="btn-ghost"><span class="ic" data-ic="book"></span> Ver Cursos</a>
   </div>
 
 </div>
 
+<script src="../catalog.js"></script>
+<script src="../site.js"></script>
 <script>
-  const faqs = [
+  renderFaq([
     {
       q:"Posso cancelar a qualquer momento?",
       a:"Sim. Você pode cancelar a assinatura quando quiser, sem multa nem fidelidade. O acesso continua ativo até o fim do período já pago."
@@ -296,22 +291,7 @@
       q:"Posso fazer download das aulas com a assinatura?",
       a:"Sim. O conteúdo fica disponível para download enquanto a sua assinatura estiver ativa."
     },
-  ];
-
-  document.getElementById('faqs').innerHTML = faqs.map((f,i)=>`
-    <div class="faq" data-f="${i}">
-      <div class="faq-q">
-        <span class="n">${String(i+1).padStart(2,'0')}</span>
-        <span class="t">${f.q}</span>
-        <span class="c">⌄</span>
-      </div>
-      <div class="faq-a">${f.a}</div>
-    </div>
-  `).join('');
-
-  document.querySelectorAll('.faq').forEach(el=>{
-    el.querySelector('.faq-q').addEventListener('click',()=>el.classList.toggle('open'));
-  });
+  ], document.getElementById("faqs"));
 </script>
 
 </body>

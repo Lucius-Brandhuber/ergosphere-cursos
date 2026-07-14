@@ -3,7 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="COPY LOW de Luiggi Stecca na Ergosphere: copywriting aplicado a produtos low ticket — anúncios, páginas e e-mails que convertem. 56 aulas, acesso vitalício.">
+<meta name="theme-color" content="#08080B">
+<meta property="og:title" content="COPY LOW — Ergosphere">
+<meta property="og:description" content="Copywriting para produtos low ticket: anúncios, páginas e e-mails que convertem. 56 aulas com acesso vitalício.">
+<meta property="og:type" content="product">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:image" content="https://lucius-brandhuber.github.io/ergosphere-cursos/curso/copy-low/capa.png">
+<meta name="twitter:card" content="summary_large_image">
 <title>COPY LOW — Ergosphere</title>
+<link rel="icon" type="image/svg+xml" href="../../favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -24,8 +33,8 @@
       <a href="../../assinar/">Assinar</a>
     </div>
     <div class="nav-right">
-      <div class="search-mini">🔍 Buscar... <span class="kbd">⌘K</span></div>
-      <div class="cart">🛒</div>
+      <div class="search-mini"><span class="ic" data-ic="search"></span> Buscar... <span class="kbd">⌘K</span></div>
+      <a href="#" class="cart" aria-label="Carrinho"><span class="ic" data-ic="cart"></span></a>
       <a href="#" class="btn-gold">Entrar →</a>
     </div>
   </nav>
@@ -36,7 +45,7 @@
   <div class="crumbs">
     <a href="../../index.html">Início</a> <span class="sep">›</span>
     <a href="../../index.html">Cursos</a> <span class="sep">›</span>
-    <span class="here">Marketing Digital</span>
+    <span class="here">COPY LOW</span>
   </div>
 
   <div class="cols">
@@ -61,36 +70,32 @@
         </div>
         <div class="perks">
           <div class="perk"><span class="i">∞</span> Acesso Vitalício</div>
-          <div class="perk"><span class="i">⤓</span> Downloads</div>
-          <div class="perk"><span class="i">↻</span> Atualizações Semanais</div>
-          <div class="perk"><span class="i">◎</span> Suporte</div>
+          <div class="perk"><span class="i ic" data-ic="download"></span> Downloads</div>
+          <div class="perk"><span class="i ic" data-ic="refresh"></span> Atualizações Semanais</div>
+          <div class="perk"><span class="i ic" data-ic="support"></span> Suporte</div>
         </div>
       </div>
 
       <!-- conteúdo -->
       <div class="panel">
-        <div class="panel-pad" style="padding-bottom:20px">
+        <div class="panel-pad tight">
           <div class="sec-head">
-            <div class="sec-ico">📖</div>
+            <div class="sec-ico"><span class="ic" data-ic="book"></span></div>
             <div>
               <h2>Conteúdo do Curso</h2>
               <div class="sub">Veja tudo que está incluído neste curso</div>
             </div>
           </div>
-          <div class="stats">
-            <span class="pill">📁 <b>1</b> módulo</span>
-            <span class="pill">▶ <b>56</b> aulas</span>
-            <span class="pill">🕐 <b>11h 8min</b></span>
-          </div>
+          <div class="stats" id="stats"></div>
         </div>
         <div id="mods"></div>
       </div>
 
       <!-- COMPRE JUNTO -->
       <div class="panel">
-        <div class="panel-pad" style="padding-bottom:18px">
+        <div class="panel-pad tight">
           <div class="sec-head">
-            <div class="sec-ico">🛒</div>
+            <div class="sec-ico"><span class="ic" data-ic="cart"></span></div>
             <div>
               <h2>Compre Junto</h2>
               <div class="sub">Adicione ao seu pedido por um valor simbólico</div>
@@ -106,9 +111,9 @@
 
       <!-- abas -->
       <div class="tabs">
-        <div class="tab active" data-tab="visao">💡 Visão Geral</div>
-        <div class="tab" data-tab="desc">📄 Descrição</div>
-        <div class="tab" data-tab="det">⚙ Detalhes</div>
+        <div class="tab active" data-tab="visao"><span class="ic" data-ic="bulb"></span> Visão Geral</div>
+        <div class="tab" data-tab="desc"><span class="ic" data-ic="doc"></span> Descrição</div>
+        <div class="tab" data-tab="det"><span class="ic" data-ic="sliders"></span> Detalhes</div>
       </div>
 
       <div class="tabpane active" id="visao">
@@ -129,7 +134,7 @@
 
         <div class="panel panel-pad">
           <div class="sec-head">
-            <div class="sec-ico">🎓</div>
+            <div class="sec-ico"><span class="ic" data-ic="grad"></span></div>
             <div><h2>Sobre o Instrutor</h2></div>
           </div>
           <div class="teacher">
@@ -150,7 +155,7 @@
       <div class="tabpane" id="desc">
         <div class="panel panel-pad">
           <div class="sec-head">
-            <div class="sec-ico">📄</div>
+            <div class="sec-ico"><span class="ic" data-ic="doc"></span></div>
             <div><h2>Descrição</h2></div>
           </div>
           <div class="prose">
@@ -171,10 +176,10 @@
       <div class="tabpane" id="det">
         <div class="panel panel-pad">
           <div class="sec-head">
-            <div class="sec-ico">❓</div>
+            <div class="sec-ico"><span class="ic" data-ic="question"></span></div>
             <div><h2>Perguntas Frequentes</h2></div>
           </div>
-          <div id="faqs" style="margin-top:22px"></div>
+          <div id="faqs" class="faq-list"></div>
         </div>
       </div>
 
@@ -188,13 +193,13 @@
         </div>
         <div class="pix"><span class="d"></span> PIX aprovação imediata</div>
 
-        <a href="#" class="btn-gold">🛒 Comprar Agora</a>
-        <a href="#" class="btn-ghost">♡ Adicionar aos favoritos</a>
+        <a href="#" class="btn-gold shine-auto"><span class="ic" data-ic="cart"></span> Comprar Agora</a>
+        <a href="#" class="btn-ghost"><span class="ic" data-ic="heart"></span> Adicionar aos favoritos</a>
 
         <div class="or">ou</div>
 
         <a href="../../assinar/" class="sub-cta">
-          <span class="crown">👑</span>
+          <span class="crown"><span class="ic" data-ic="crown"></span></span>
           <span>
             <div class="t">Acesse todos os cursos</div>
             <div class="s">A partir de <b>R$ 19,00</b>/mês</div>
@@ -204,19 +209,22 @@
 
         <div class="incl-title">ESTE CURSO INCLUI:</div>
         <div class="incl"><span class="i">∞</span> Acesso vitalício</div>
-        <div class="incl"><span class="i">⤓</span> Download dos materiais</div>
-        <div class="incl"><span class="i">🛡</span> Compra 100% segura</div>
+        <div class="incl"><span class="i ic" data-ic="download"></span> Download dos materiais</div>
+        <div class="incl"><span class="i ic" data-ic="shield"></span> Compra 100% segura</div>
 
         <div class="trust">
-          <span>🔒 SSL Seguro</span> <span>·</span> <span>⚡ Acesso Imediato</span>
+          <span><span class="ic" data-ic="lock"></span> SSL Seguro</span> <span>·</span>
+          <span><span class="ic" data-ic="zap"></span> Acesso Imediato</span>
         </div>
       </div>
     </aside>
   </div>
 </div>
 
+<script src="../../catalog.js"></script>
+<script src="../../site.js"></script>
 <script>
-  const PRECO_CURSO = 29.90;
+  const SLUG = "copy-low";
 
   const modulos = [
     {n:"Copy Low", aulas:"56 aulas", dur:"11h 8min"},
@@ -225,15 +233,11 @@
   const bumps = [
     {
       slug:"black-ads",
-      n:"BLACK ADS",
       d:"Estratégias avançadas de tráfego pago para escalar campanhas com ROI positivo.",
-      preco:29.90
     },
     {
       slug:"outbox-club",
-      n:"OUTBOX CLUB",
       d:"O método completo de Luiggi Stecca: 143 aulas para construir e escalar um negócio low ticket.",
-      preco:60.00
     },
   ];
 

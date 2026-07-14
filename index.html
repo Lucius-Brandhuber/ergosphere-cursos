@@ -3,26 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ergosphere — Cursos</title>
+<meta name="description" content="Cursos de marketing digital com acesso vitalício na Ergosphere. Funis de vendas, tráfego pago e copywriting com aprovação imediata via PIX.">
+<meta name="theme-color" content="#08080B">
+<meta property="og:title" content="Ergosphere — Cursos de Marketing Digital">
+<meta property="og:description" content="Encontre o curso ideal para impulsionar sua carreira com acesso vitalício.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<title>Ergosphere — Cursos de Marketing Digital</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 <style>
-  /* HERO */
-  .hero{text-align:center;padding:44px 24px 26px}
-  .badge{
-    display:inline-flex;align-items:center;gap:8px;
-    background:var(--gold-wash);border:1px solid rgba(200,168,106,.28);
-    border-radius:999px;padding:6px 15px;font-size:13px;color:var(--gold-bright);margin-bottom:24px;
-  }
-  .dot{width:7px;height:7px;border-radius:50%;background:var(--gold-bright);box-shadow:0 0 10px var(--gold-bright)}
-  .hero h1{font-size:44px;font-weight:800;letter-spacing:-1.2px}
-  .hero h1 .accent{
-    background:linear-gradient(var(--gold-bright),var(--gold-dim));
-    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
-  }
-  .hero p{color:var(--text-2);margin-top:14px;font-size:16px}
+  /* busca do hero */
   .search-big{
     max-width:1000px;margin:28px auto 0;
     display:flex;align-items:center;gap:12px;
@@ -30,7 +24,14 @@
     border-radius:var(--radius-lg);padding:16px 20px;color:var(--muted);font-size:15px;
     transition:border-color .2s;
   }
-  .search-big:hover{border-color:rgba(200,168,106,.35)}
+  .search-big:hover,.search-big:focus-within{border-color:var(--gold-border)}
+  .search-big .ic{color:var(--gold);font-size:17px}
+  .search-big input{
+    flex:1;background:none;border:none;outline:none;
+    color:var(--text);font:inherit;min-width:0;
+  }
+  .search-big input::placeholder{color:var(--muted)}
+  .search-big input::-webkit-search-cancel-button{-webkit-appearance:none}
 
   /* LAYOUT */
   .layout{max-width:1240px;margin:36px auto 70px;padding:0 24px;display:grid;grid-template-columns:224px 1fr;gap:30px}
@@ -38,34 +39,79 @@
   /* SIDEBAR */
   .side-title{font-size:11px;letter-spacing:1.5px;color:var(--muted);margin-bottom:14px;font-weight:600}
   .cat{
-    display:flex;align-items:center;gap:11px;
+    display:flex;align-items:center;gap:11px;width:100%;text-align:left;
     padding:11px 14px;border-radius:var(--radius);font-size:14px;color:var(--text-2);
     cursor:pointer;transition:background .15s,color .15s;position:relative;
   }
   .cat:hover{background:var(--plate);color:var(--text)}
   .cat.active{background:var(--gold-wash);color:var(--gold-bright);font-weight:600}
   .cat.active::before{content:"";position:absolute;left:0;top:8px;bottom:8px;width:3px;border-radius:3px;background:var(--gold)}
-  .cat .ico{width:16px;text-align:center;filter:grayscale(.2)}
+  .cat .ico{width:17px;display:inline-flex;justify-content:center}
 
   /* MAIN */
-  .main-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px}
+  .main-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px;gap:14px}
   .main-head .showing{color:var(--text-2);font-size:14px}
+  .sortbox{position:relative}
   .sort{
     display:flex;align-items:center;gap:8px;
     background:var(--plate);border:1px solid var(--hair);border-radius:var(--radius);
     padding:9px 14px;font-size:14px;color:var(--text-2);cursor:pointer;
+    transition:border-color .2s,color .2s;
   }
+  .sort:hover{border-color:var(--gold-border);color:var(--text)}
+  .sort .ic{color:var(--gold)}
+  .sort .cv{transition:transform .22s var(--ease);display:inline-block}
+  .sortbox.open .sort .cv{transform:rotate(180deg)}
+  .sort-menu{
+    position:absolute;right:0;top:calc(100% + 8px);z-index:40;min-width:190px;
+    background:var(--plate);border:1px solid var(--hair-strong);border-radius:var(--radius-lg);
+    box-shadow:var(--shadow-pop);overflow:hidden;
+    opacity:0;visibility:hidden;translate:0 -6px;
+    transition:opacity .2s var(--ease),translate .2s var(--ease),visibility .2s;
+  }
+  .sortbox.open .sort-menu{opacity:1;visibility:visible;translate:0 0}
+  .sort-menu button{
+    display:block;width:100%;text-align:left;
+    padding:11px 16px;font-size:14px;color:var(--text-2);
+    transition:background .15s,color .15s;
+  }
+  .sort-menu button:hover{background:var(--plate-2);color:var(--text)}
+  .sort-menu button.on{color:var(--gold-bright);background:var(--gold-wash)}
+
   .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+
+  /* estado vazio da busca */
+  .empty{grid-column:1/-1;text-align:center;padding:70px 0}
+  .empty .ring{width:52px;height:52px;margin:0 auto 22px;opacity:.75}
+  .empty .ring::after{inset:9px;background:var(--void)}
+  .empty p{color:var(--text-2);font-size:16px;font-weight:600}
+  .empty small{display:block;color:var(--muted);font-size:13.5px;margin-top:6px}
+  .empty button{
+    margin-top:20px;display:inline-flex;
+    border:1px solid var(--hair-strong);border-radius:999px;
+    padding:9px 20px;font-size:13px;color:var(--text);
+    transition:background .2s,border-color .2s;
+  }
+  .empty button:hover{background:var(--gold-wash);border-color:var(--gold-border);color:var(--gold-bright)}
 
   @media(max-width:1080px){
     .grid{grid-template-columns:repeat(2,1fr)}
     .layout{grid-template-columns:186px 1fr}
   }
   @media(max-width:680px){
-    .layout{grid-template-columns:1fr}
-    .side{display:none}
-    .grid{grid-template-columns:repeat(2,1fr)}
-    .hero h1{font-size:31px}
+    .layout{grid-template-columns:1fr;margin-top:26px;gap:20px}
+    .side{display:flex;overflow-x:auto;gap:8px;padding-bottom:4px;scrollbar-width:none}
+    .side::-webkit-scrollbar{display:none}
+    .side-title{display:none}
+    .cat{flex:none;width:auto;border:1px solid var(--hair);border-radius:999px;padding:9px 16px;background:var(--plate)}
+    .cat.active{border-color:var(--gold-border)}
+    .cat.active::before{display:none}
+    .grid{grid-template-columns:repeat(2,1fr);gap:14px}
+    .hero{padding-top:30px}
+  }
+  @media(max-width:480px){
+    .grid{grid-template-columns:1fr}
+    .main-head{flex-wrap:wrap}
   }
 </style>
 </head>
@@ -83,8 +129,8 @@
       <a href="assinar/">Assinar</a>
     </div>
     <div class="nav-right">
-      <div class="search-mini">🔍 Buscar... <span class="kbd">⌘K</span></div>
-      <div class="cart">🛒</div>
+      <div class="search-mini"><span class="ic" data-ic="search"></span> Buscar... <span class="kbd">⌘K</span></div>
+      <a href="#" class="cart" aria-label="Carrinho"><span class="ic" data-ic="cart"></span></a>
       <a href="#" class="btn-gold">Entrar →</a>
     </div>
   </nav>
@@ -94,72 +140,145 @@
   <div class="badge"><span class="dot"></span> Cursos disponíveis</div>
   <h1>Explore Nossos <span class="accent">Cursos</span></h1>
   <p>Encontre o curso ideal para impulsionar sua carreira com acesso vitalício</p>
-  <div class="search-big">🔍 Buscar cursos, instrutores...</div>
+  <form class="search-big" id="buscar" role="search" onsubmit="return false">
+    <span class="ic" data-ic="search"></span>
+    <input id="busca" type="search" placeholder="Buscar cursos, instrutores..." autocomplete="off" aria-label="Buscar cursos">
+  </form>
 </section>
 
 <div class="layout">
-  <aside class="side">
+  <aside class="side" aria-label="Categorias">
     <div class="side-title">CATEGORIAS</div>
-    <div class="cat active"><span class="ico">▦</span> Todas</div>
-    <div class="cat"><span class="ico">📈</span> Marketing Digital</div>
+    <button class="cat active" data-cat="all"><span class="ico ic" data-ic="grid"></span> Todas</button>
+    <button class="cat" data-cat="marketing"><span class="ico ic" data-ic="chart"></span> Marketing Digital</button>
   </aside>
 
   <main>
     <div class="main-head">
       <div class="showing">Todos os cursos</div>
-      <div class="sort">↗ Mais Populares ⌄</div>
+      <div class="sortbox">
+        <button class="sort" aria-haspopup="listbox" aria-expanded="false">
+          <span class="ic" data-ic="trend"></span> <span id="sortLbl">Mais Populares</span> <span class="cv">⌄</span>
+        </button>
+        <div class="sort-menu" role="listbox">
+          <button data-s="pop" class="on" role="option" aria-selected="true">Mais Populares</button>
+          <button data-s="precoAsc" role="option" aria-selected="false">Menor preço</button>
+          <button data-s="precoDesc" role="option" aria-selected="false">Maior preço</button>
+          <button data-s="az" role="option" aria-selected="false">Nome (A–Z)</button>
+        </div>
+      </div>
     </div>
     <div class="grid" id="grid"></div>
   </main>
 </div>
 
+<script src="catalog.js"></script>
+<script src="site.js"></script>
 <script>
-  const cursos = [
-    {
-      t:"OUTBOX CLUB",
-      i:"LUIGGI STECCA",
-      a:"143 aulas",
-      h:"70h 34min",
-      p:"R$ 60,00",
-      slug:"outbox-club"
-    },
-    {
-      t:"BLACK ADS",
-      i:"LUIGGI STECCA",
-      a:"47 aulas",
-      h:"11h 4min",
-      p:"R$ 29,90",
-      slug:"black-ads"
-    },
-    {
-      t:"COPY LOW",
-      i:"LUIGGI STECCA",
-      a:"56 aulas",
-      h:"11h 8min",
-      p:"R$ 29,90",
-      slug:"copy-low"
-    },
-  ];
+  const grid = document.getElementById("grid");
+  const showing = document.querySelector(".showing");
+  const estado = { q: "", cat: "all", sort: "pop" };
 
-  document.getElementById('grid').innerHTML = cursos.map(c=>`
+  const norm = s => s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+
+  const cardTpl = c => `
     <a class="card" href="curso/${c.slug}/">
       <div class="thumb">
-        <img src="curso/${c.slug}/capa.png" alt="${c.t} — ${c.i}">
+        <img src="curso/${c.slug}/capa.png" alt="${c.t} — ${c.i}" loading="lazy" decoding="async">
       </div>
       <div class="card-body">
         <div class="card-title">${c.t}</div>
         <div class="instructor"><span class="av"></span> ${c.i}</div>
         <div class="pills">
-          <span class="pill">📖 ${c.a}</span>
-          <span class="pill">⏱ ${c.h}</span>
+          <span class="pill"><span class="ic" data-ic="book"></span> ${c.aulas} aulas</span>
+          <span class="pill"><span class="ic" data-ic="clock"></span> ${c.dur}</span>
         </div>
         <div class="card-foot">
-          <span class="price">${c.p}</span>
+          <span class="price">${brl(c.preco)}</span>
           <span class="btn-ver">Ver →</span>
         </div>
       </div>
-    </a>
-  `).join('');
+    </a>`;
+
+  const emptyTpl = `
+    <div class="empty">
+      <span class="ring"></span>
+      <p>Nenhum curso encontrado</p>
+      <small>Tente outra busca ou explore todas as categorias.</small>
+      <button id="limpar">Limpar busca</button>
+    </div>`;
+
+  function render() {
+    let lista = CATALOGO_ORDEM.map(slug => ({ slug, ...CATALOGO[slug] }));
+    if (estado.cat !== "all") lista = lista.filter(c => c.cat === estado.cat);
+    if (estado.q) {
+      const q = norm(estado.q);
+      lista = lista.filter(c => norm(c.t + " " + c.i).includes(q));
+    }
+    if (estado.sort === "precoAsc") lista.sort((a, b) => a.preco - b.preco);
+    if (estado.sort === "precoDesc") lista.sort((a, b) => b.preco - a.preco);
+    if (estado.sort === "az") lista.sort((a, b) => a.t.localeCompare(b.t));
+
+    const filtrado = estado.q || estado.cat !== "all";
+    showing.textContent = !filtrado ? "Todos os cursos"
+      : lista.length === 1 ? "1 curso encontrado"
+      : `${lista.length} cursos encontrados`;
+
+    grid.innerHTML = lista.length ? lista.map(cardTpl).join("") : emptyTpl;
+    applyIcons(grid);
+    const limpar = document.getElementById("limpar");
+    if (limpar) limpar.addEventListener("click", () => {
+      estado.q = ""; estado.cat = "all";
+      document.getElementById("busca").value = "";
+      document.querySelectorAll(".cat").forEach(c => c.classList.toggle("active", c.dataset.cat === "all"));
+      render();
+    });
+  }
+
+  // busca
+  document.getElementById("busca").addEventListener("input", e => {
+    estado.q = e.target.value.trim();
+    render();
+  });
+
+  // categorias
+  document.querySelectorAll(".cat").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll(".cat").forEach(c => c.classList.remove("active"));
+      btn.classList.add("active");
+      estado.cat = btn.dataset.cat;
+      render();
+    });
+  });
+
+  // ordenação
+  const sortbox = document.querySelector(".sortbox");
+  const sortBtn = sortbox.querySelector(".sort");
+  sortBtn.addEventListener("click", e => {
+    e.stopPropagation();
+    const open = sortbox.classList.toggle("open");
+    sortBtn.setAttribute("aria-expanded", open);
+  });
+  document.addEventListener("click", () => {
+    sortbox.classList.remove("open");
+    sortBtn.setAttribute("aria-expanded", "false");
+  });
+  document.querySelectorAll(".sort-menu button").forEach(b => {
+    b.addEventListener("click", () => {
+      estado.sort = b.dataset.s;
+      document.getElementById("sortLbl").textContent = b.textContent;
+      document.querySelectorAll(".sort-menu button").forEach(x => {
+        x.classList.toggle("on", x === b);
+        x.setAttribute("aria-selected", x === b);
+      });
+      render();
+    });
+  });
+
+  render();
+
+  // #buscar na URL (vindo do ⌘K de outra página) foca a busca
+  if (location.hash === "#buscar") document.getElementById("busca").focus();
 </script>
 
 </body>

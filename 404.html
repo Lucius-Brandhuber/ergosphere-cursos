@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#08080B">
+<title>Página não encontrada — Ergosphere</title>
+<link rel="icon" type="image/svg+xml" href="/ergosphere-cursos/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --void:#08080B;--text:#F4F3EE;--text-2:#A6A199;--muted:#7D7870;
+    --gold:#C8A86A;--gold-bright:#E4C88A;--gold-dim:#8A7448;
+    --gold-wash:rgba(200,168,106,.12);--gold-border:rgba(200,168,106,.28);
+    --ease:cubic-bezier(.22,.61,.36,1);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{
+    font-family:Inter,system-ui,sans-serif;background:var(--void);color:var(--text);
+    min-height:100vh;display:flex;align-items:center;justify-content:center;
+    text-align:center;padding:24px;-webkit-font-smoothing:antialiased;
+  }
+  body::before{
+    content:"";position:fixed;inset:0;pointer-events:none;
+    background:radial-gradient(600px 340px at 50% -80px, var(--gold-wash), transparent 70%);
+  }
+  .ring{
+    width:88px;height:88px;border-radius:50%;position:relative;margin:0 auto 34px;
+    background:conic-gradient(rgba(0,0,0,0) 0%, rgba(200,168,106,.05) 12%, var(--gold-dim) 30%, var(--gold-bright) 47%, var(--gold) 58%, rgba(200,168,106,.18) 76%, rgba(0,0,0,0) 92%);
+    animation:spin 14s linear infinite;
+  }
+  .ring::after{content:"";position:absolute;inset:16px;border-radius:50%;background:var(--void)}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .code{font-size:13px;letter-spacing:4px;color:var(--gold);font-weight:600}
+  h1{font-size:clamp(28px,6vw,42px);font-weight:800;letter-spacing:-1px;margin:12px 0 14px}
+  p{color:var(--text-2);font-size:16px;line-height:1.6;max-width:44ch;margin:0 auto}
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;margin-top:32px;
+    background:linear-gradient(var(--gold-bright),var(--gold) 55%,var(--gold-dim));
+    color:var(--void);font-weight:600;font-size:15px;text-decoration:none;
+    padding:13px 26px;border-radius:999px;transition:filter .2s,transform .2s;
+  }
+  .btn:hover{filter:brightness(1.08);transform:translateY(-1px)}
+  @media (prefers-reduced-motion: reduce){.ring{animation:none}}
+</style>
+</head>
+<body>
+  <main>
+    <div class="ring" aria-hidden="true"></div>
+    <div class="code">ERRO 404</div>
+    <h1>Você cruzou o horizonte de eventos</h1>
+    <p>Esta página não existe ou foi movida. Volte para o catálogo e continue explorando os cursos.</p>
+    <a class="btn" href="/ergosphere-cursos/">← Voltar aos cursos</a>
+  </main>
+</body>
+</html>
