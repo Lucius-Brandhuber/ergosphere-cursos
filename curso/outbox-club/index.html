@@ -8,179 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../../styles.css">
-<style>
-  .page{max-width:1240px;margin:8px auto 80px;padding:0 24px}
-
-  /* breadcrumb */
-  .crumbs{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--muted);margin:14px 0 26px}
-  .crumbs a:hover{color:var(--gold-bright)}
-  .crumbs .sep{opacity:.5}
-  .crumbs .here{color:var(--text);font-weight:600}
-
-  .cols{display:grid;grid-template-columns:1fr 380px;gap:26px;align-items:start}
-
-  /* painéis */
-  .panel{
-    background:var(--plate);border:1px solid var(--hair);
-    border-radius:18px;overflow:hidden;margin-bottom:26px;
-  }
-  .panel-pad{padding:26px}
-
-  /* topo do produto */
-  .prod{display:grid;grid-template-columns:190px 1fr;gap:26px;padding:26px}
-  .prod .shot{
-    background:
-      radial-gradient(120px 100px at 50% 45%, rgba(200,168,106,.14), transparent 72%),
-      var(--plate-inset);
-    border:1px solid var(--hair);border-radius:var(--radius-lg);
-    display:flex;align-items:center;justify-content:center;padding:12px;aspect-ratio:1/1.05;
-  }
-  .prod .shot img{max-width:100%;max-height:100%;object-fit:contain;filter:drop-shadow(0 16px 30px rgba(0,0,0,.7))}
-  .tag{
-    display:inline-block;background:var(--gold-wash);border:1px solid rgba(200,168,106,.28);
-    color:var(--gold-bright);border-radius:8px;padding:6px 12px;font-size:13px;font-weight:500;
-  }
-  .prod h1{font-size:34px;font-weight:800;letter-spacing:-.8px;margin:14px 0 8px}
-  .by{color:var(--text-2);font-size:15px;display:flex;align-items:center;gap:7px}
-  .by b{color:var(--text);font-weight:600}
-  .verified{color:var(--gold);font-size:13px}
-  .prod p.desc{color:var(--text-2);line-height:1.6;margin-top:16px;font-size:15px}
-
-  .perks{
-    display:flex;flex-wrap:wrap;gap:26px;
-    padding:18px 26px;border-top:1px solid var(--hair);
-    background:var(--plate-inset);
-  }
-  .perk{display:flex;align-items:center;gap:9px;font-size:14px;color:var(--text-2)}
-  .perk .i{color:var(--gold);font-size:15px}
-
-  /* seção genérica */
-  .sec-head{display:flex;align-items:center;gap:14px;margin-bottom:6px}
-  .sec-ico{
-    width:42px;height:42px;border-radius:12px;flex:none;
-    background:var(--gold-wash);border:1px solid rgba(200,168,106,.25);
-    display:flex;align-items:center;justify-content:center;font-size:19px;
-  }
-  .sec-head h2{font-size:22px;font-weight:700}
-  .sec-head .sub{color:var(--muted);font-size:13px;margin-top:2px}
-
-  .stats{display:flex;flex-wrap:wrap;gap:10px;margin:20px 0 4px}
-  .stats .pill b{color:var(--text);font-weight:700}
-
-  /* módulos */
-  .mod{
-    display:flex;align-items:center;gap:16px;
-    padding:18px 26px;border-top:1px solid var(--hair);
-    cursor:pointer;transition:background .18s;
-  }
-  .mod:hover{background:var(--plate-2)}
-  .mod .num{
-    width:44px;height:44px;border-radius:10px;flex:none;
-    background:var(--plate-inset);border:1px solid var(--hair);
-    display:flex;align-items:center;justify-content:center;
-    font-size:14px;font-weight:700;color:var(--muted);
-  }
-  .mod.open .num{background:var(--gold-wash);border-color:rgba(200,168,106,.3);color:var(--gold-bright)}
-  .mod .name{font-size:16px;font-weight:600}
-  .mod .meta{color:var(--muted);font-size:13px;margin-top:4px;display:flex;gap:10px;align-items:center}
-  .mod .chev{margin-left:auto;color:var(--muted);transition:transform .22s var(--ease)}
-  .mod.open .chev{transform:rotate(180deg);color:var(--gold)}
-  .mod-body{
-    display:none;padding:0 26px 20px 86px;
-    color:var(--text-2);font-size:14px;line-height:1.6;border-top:1px solid transparent;
-  }
-  .mod-body.open{display:block}
-
-  /* abas */
-  .tabs{display:flex;gap:8px;background:var(--plate);border:1px solid var(--hair);border-radius:14px;padding:8px;margin-bottom:26px}
-  .tab{
-    display:flex;align-items:center;gap:8px;
-    padding:12px 20px;border-radius:10px;font-size:15px;color:var(--text-2);
-    cursor:pointer;transition:background .18s,color .18s;
-  }
-  .tab:hover{color:var(--text)}
-  .tab.active{background:var(--gold-wash);color:var(--gold-bright);font-weight:600;border:1px solid rgba(200,168,106,.28)}
-  .tabpane{display:none}
-  .tabpane.active{display:block}
-
-  /* aprender */
-  .learn{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:22px}
-  .learn div{
-    display:flex;gap:12px;align-items:flex-start;
-    background:var(--plate-inset);border:1px solid var(--hair);
-    border-radius:12px;padding:16px;font-size:14px;color:var(--text-2);line-height:1.5;
-  }
-  .learn .ck{color:var(--gold);font-weight:700;flex:none}
-
-  /* instrutor */
-  .teacher{display:flex;gap:20px;align-items:flex-start;margin-top:20px}
-  .teacher .ava{
-    width:80px;height:80px;border-radius:14px;flex:none;
-    background:linear-gradient(150deg,var(--gold-dim),#22222a);
-    border:1px solid rgba(200,168,106,.3);
-    display:flex;align-items:center;justify-content:center;
-    font-size:32px;font-weight:800;color:var(--gold-bright);
-  }
-  .teacher h3{font-size:19px;font-weight:800}
-  .teacher .role{color:var(--gold);font-size:12px;letter-spacing:1.2px;font-weight:600;margin-top:3px}
-  .teacher p{color:var(--text-2);line-height:1.65;margin-top:12px;font-size:14px;max-width:70ch}
-
-  /* ===== caixa de compra ===== */
-  .buy{
-    position:sticky;top:96px;
-    background:
-      radial-gradient(300px 160px at 50% 0, rgba(200,168,106,.10), transparent 70%),
-      var(--plate);
-    border:1px solid var(--hair-strong);border-radius:18px;padding:26px;
-  }
-  .amount{text-align:center;display:flex;align-items:baseline;justify-content:center;gap:3px}
-  .amount .cur{color:var(--text-2);font-size:17px;font-weight:600}
-  .amount .int{font-size:46px;font-weight:800;letter-spacing:-1.5px;color:var(--gold-bright)}
-  .amount .cents{font-size:20px;font-weight:700;color:var(--gold-bright)}
-  .pix{
-    display:flex;align-items:center;justify-content:center;gap:8px;
-    margin:14px auto 22px;width:fit-content;
-    background:rgba(52,199,89,.10);border:1px solid rgba(52,199,89,.3);
-    color:var(--good-text);border-radius:999px;padding:6px 14px;font-size:13px;font-weight:600;
-  }
-  .pix .d{width:7px;height:7px;border-radius:50%;background:var(--good-text);box-shadow:0 0 8px var(--good-text)}
-  .buy .btn-gold{width:100%;padding:15px;font-size:16px;border-radius:12px}
-  .buy .btn-ghost{width:100%;margin-top:12px}
-
-  .or{display:flex;align-items:center;gap:14px;color:var(--muted);font-size:13px;margin:22px 0}
-  .or::before,.or::after{content:"";flex:1;height:1px;background:var(--hair)}
-
-  .sub-cta{
-    display:flex;align-items:center;gap:14px;
-    background:var(--gold-wash);border:1px solid rgba(200,168,106,.28);
-    border-radius:14px;padding:16px;transition:border-color .2s;
-  }
-  .sub-cta:hover{border-color:rgba(200,168,106,.55)}
-  .sub-cta .crown{
-    width:42px;height:42px;border-radius:10px;flex:none;
-    background:rgba(200,168,106,.18);display:flex;align-items:center;justify-content:center;font-size:19px;
-  }
-  .sub-cta .t{font-size:15px;font-weight:700}
-  .sub-cta .s{font-size:13px;color:var(--text-2);margin-top:2px}
-  .sub-cta .s b{color:var(--gold-bright)}
-  .sub-cta .go{margin-left:auto;color:var(--gold)}
-
-  .incl-title{font-size:11px;letter-spacing:1.4px;color:var(--muted);font-weight:600;margin:26px 0 14px;padding-top:22px;border-top:1px solid var(--hair)}
-  .incl{display:flex;align-items:center;gap:12px;font-size:14px;color:var(--text-2);padding:7px 0}
-  .incl .i{color:var(--gold);width:18px;text-align:center}
-  .trust{
-    display:flex;align-items:center;justify-content:center;gap:14px;
-    margin-top:20px;padding-top:18px;border-top:1px solid var(--hair);
-    color:var(--muted);font-size:12px;
-  }
-
-  @media(max-width:1000px){
-    .cols{grid-template-columns:1fr}
-    .buy{position:static}
-    .prod{grid-template-columns:1fr}
-    .learn{grid-template-columns:1fr}
-  }
-</style>
+<link rel="stylesheet" href="../curso.css">
 </head>
 <body>
 
@@ -497,7 +325,6 @@
     {n:"Outbox Club", aulas:"143 aulas", dur:"70h 34min", arq:"15"},
   ];
 
-  // Compre Junto — capas em bump-<slug>.png (placeholder até a imagem existir)
   const bumps = [
     {
       slug:"black-ads",
@@ -513,80 +340,6 @@
     },
   ];
 
-  const brl = v => "R$ " + v.toFixed(2).replace(".", ",");
-
-  document.getElementById('mods').innerHTML = modulos.map((m,i)=>`
-    <div class="mod" data-i="${i}">
-      <div class="num">${String(i+1).padStart(2,'0')}</div>
-      <div>
-        <div class="name">${i+1}.${m.n}</div>
-        <div class="meta">
-          <span>▶ ${m.aulas}</span> <span>•</span> <span>🕐 ${m.dur}</span>
-          ${m.arq ? `<span>•</span> <span>📎 ${m.arq}</span>` : ``}
-        </div>
-      </div>
-      <div class="chev">⌄</div>
-    </div>
-    <div class="mod-body" data-b="${i}">
-      Conteúdo do módulo disponível após a compra.
-    </div>
-  `).join('');
-
-  document.querySelectorAll('.mod').forEach(el=>{
-    el.addEventListener('click',()=>{
-      const i = el.dataset.i;
-      const body = document.querySelector(`.mod-body[data-b="${i}"]`);
-      el.classList.toggle('open');
-      body.classList.toggle('open');
-    });
-  });
-
-  document.querySelectorAll('.tab').forEach(t=>{
-    t.addEventListener('click',()=>{
-      document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
-      document.querySelectorAll('.tabpane').forEach(x=>x.classList.remove('active'));
-      t.classList.add('active');
-      document.getElementById(t.dataset.tab).classList.add('active');
-    });
-  });
-
-  /* ---------- Compre Junto ---------- */
-  document.getElementById('bumps').innerHTML = bumps.map((b,i)=>`
-    <div class="bump" data-i="${i}">
-      <div class="box"></div>
-      <div class="mini">
-        <img src="bump-${b.slug}.png" alt="${b.n}">
-        <span class="ph"></span>
-      </div>
-      <div class="info">
-        <div class="n">${b.n}</div>
-        <div class="d">${b.d}</div>
-      </div>
-      <div class="pr">
-        <div class="v">${brl(b.preco)}</div>
-        <div class="l">à vista</div>
-      </div>
-    </div>
-  `).join('');
-
-  // capa ainda não existe → mostra o placeholder do disco de acreção
-  document.querySelectorAll('.bump .mini img').forEach(img=>{
-    const marcar = () => img.parentNode.classList.add('noimg');
-    img.addEventListener('error', marcar);
-    if (img.complete && img.naturalWidth === 0) marcar();
-  });
-
-  const totalEl = document.getElementById('total');
-  function recalc(){
-    let t = PRECO_CURSO;
-    document.querySelectorAll('.bump.on').forEach(el=>{ t += bumps[el.dataset.i].preco; });
-    totalEl.textContent = brl(t);
-  }
-  document.querySelectorAll('.bump').forEach(el=>{
-    el.addEventListener('click',()=>{ el.classList.toggle('on'); recalc(); });
-  });
-
-  /* ---------- FAQ ---------- */
   const faqs = [
     {
       q:"O que vou aprender no curso OUTBOX CLUB?",
@@ -609,22 +362,8 @@
       a:"O foco do OUTBOX CLUB é a aplicação prática do método, não a certificação. O acesso é vitalício e inclui as atualizações semanais do conteúdo."
     },
   ];
-
-  document.getElementById('faqs').innerHTML = faqs.map((f,i)=>`
-    <div class="faq" data-f="${i}">
-      <div class="faq-q">
-        <span class="n">${String(i+1).padStart(2,'0')}</span>
-        <span class="t">${f.q}</span>
-        <span class="c">⌄</span>
-      </div>
-      <div class="faq-a">${f.a}</div>
-    </div>
-  `).join('');
-
-  document.querySelectorAll('.faq').forEach(el=>{
-    el.querySelector('.faq-q').addEventListener('click',()=>el.classList.toggle('open'));
-  });
 </script>
+<script src="../curso.js"></script>
 
 </body>
 </html>
