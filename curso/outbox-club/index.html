@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OUTBOX CLUB — Ergosphere</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../styles.css">
+<style>
+  .page{max-width:1240px;margin:8px auto 80px;padding:0 24px}
+
+  /* breadcrumb */
+  .crumbs{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--muted);margin:14px 0 26px}
+  .crumbs a:hover{color:var(--gold-bright)}
+  .crumbs .sep{opacity:.5}
+  .crumbs .here{color:var(--text);font-weight:600}
+
+  .cols{display:grid;grid-template-columns:1fr 380px;gap:26px;align-items:start}
+
+  /* painéis */
+  .panel{
+    background:var(--plate);border:1px solid var(--hair);
+    border-radius:18px;overflow:hidden;margin-bottom:26px;
+  }
+  .panel-pad{padding:26px}
+
+  /* topo do produto */
+  .prod{display:grid;grid-template-columns:190px 1fr;gap:26px;padding:26px}
+  .prod .shot{
+    background:
+      radial-gradient(120px 100px at 50% 45%, rgba(200,168,106,.14), transparent 72%),
+      var(--plate-inset);
+    border:1px solid var(--hair);border-radius:var(--radius-lg);
+    display:flex;align-items:center;justify-content:center;padding:12px;aspect-ratio:1/1.05;
+  }
+  .prod .shot img{max-width:100%;max-height:100%;object-fit:contain;filter:drop-shadow(0 16px 30px rgba(0,0,0,.7))}
+  .tag{
+    display:inline-block;background:var(--gold-wash);border:1px solid rgba(200,168,106,.28);
+    color:var(--gold-bright);border-radius:8px;padding:6px 12px;font-size:13px;font-weight:500;
+  }
+  .prod h1{font-size:34px;font-weight:800;letter-spacing:-.8px;margin:14px 0 8px}
+  .by{color:var(--text-2);font-size:15px;display:flex;align-items:center;gap:7px}
+  .by b{color:var(--text);font-weight:600}
+  .verified{color:var(--gold);font-size:13px}
+  .prod p.desc{color:var(--text-2);line-height:1.6;margin-top:16px;font-size:15px}
+
+  .perks{
+    display:flex;flex-wrap:wrap;gap:26px;
+    padding:18px 26px;border-top:1px solid var(--hair);
+    background:var(--plate-inset);
+  }
+  .perk{display:flex;align-items:center;gap:9px;font-size:14px;color:var(--text-2)}
+  .perk .i{color:var(--gold);font-size:15px}
+
+  /* seção genérica */
+  .sec-head{display:flex;align-items:center;gap:14px;margin-bottom:6px}
+  .sec-ico{
+    width:42px;height:42px;border-radius:12px;flex:none;
+    background:var(--gold-wash);border:1px solid rgba(200,168,106,.25);
+    display:flex;align-items:center;justify-content:center;font-size:19px;
+  }
+  .sec-head h2{font-size:22px;font-weight:700}
+  .sec-head .sub{color:var(--muted);font-size:13px;margin-top:2px}
+
+  .stats{display:flex;flex-wrap:wrap;gap:10px;margin:20px 0 4px}
+  .stats .pill b{color:var(--text);font-weight:700}
+
+  /* módulos */
+  .mod{
+    display:flex;align-items:center;gap:16px;
+    padding:18px 26px;border-top:1px solid var(--hair);
+    cursor:pointer;transition:background .18s;
+  }
+  .mod:hover{background:var(--plate-2)}
+  .mod .num{
+    width:44px;height:44px;border-radius:10px;flex:none;
+    background:var(--plate-inset);border:1px solid var(--hair);
+    display:flex;align-items:center;justify-content:center;
+    font-size:14px;font-weight:700;color:var(--muted);
+  }
+  .mod.open .num{background:var(--gold-wash);border-color:rgba(200,168,106,.3);color:var(--gold-bright)}
+  .mod .name{font-size:16px;font-weight:600}
+  .mod .meta{color:var(--muted);font-size:13px;margin-top:4px;display:flex;gap:10px;align-items:center}
+  .mod .chev{margin-left:auto;color:var(--muted);transition:transform .22s var(--ease)}
+  .mod.open .chev{transform:rotate(180deg);color:var(--gold)}
+  .mod-body{
+    display:none;padding:0 26px 20px 86px;
+    color:var(--text-2);font-size:14px;line-height:1.6;border-top:1px solid transparent;
+  }
+  .mod-body.open{display:block}
+
+  /* abas */
+  .tabs{display:flex;gap:8px;background:var(--plate);border:1px solid var(--hair);border-radius:14px;padding:8px;margin-bottom:26px}
+  .tab{
+    display:flex;align-items:center;gap:8px;
+    padding:12px 20px;border-radius:10px;font-size:15px;color:var(--text-2);
+    cursor:pointer;transition:background .18s,color .18s;
+  }
+  .tab:hover{color:var(--text)}
+  .tab.active{background:var(--gold-wash);color:var(--gold-bright);font-weight:600;border:1px solid rgba(200,168,106,.28)}
+  .tabpane{display:none}
+  .tabpane.active{display:block}
+
+  /* aprender */
+  .learn{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:22px}
+  .learn div{
+    display:flex;gap:12px;align-items:flex-start;
+    background:var(--plate-inset);border:1px solid var(--hair);
+    border-radius:12px;padding:16px;font-size:14px;color:var(--text-2);line-height:1.5;
+  }
+  .learn .ck{color:var(--gold);font-weight:700;flex:none}
+
+  /* instrutor */
+  .teacher{display:flex;gap:20px;align-items:flex-start;margin-top:20px}
+  .teacher .ava{
+    width:80px;height:80px;border-radius:14px;flex:none;
+    background:linear-gradient(150deg,var(--gold-dim),#22222a);
+    border:1px solid rgba(200,168,106,.3);
+    display:flex;align-items:center;justify-content:center;
+    font-size:32px;font-weight:800;color:var(--gold-bright);
+  }
+  .teacher h3{font-size:19px;font-weight:800}
+  .teacher .role{color:var(--gold);font-size:12px;letter-spacing:1.2px;font-weight:600;margin-top:3px}
+  .teacher p{color:var(--text-2);line-height:1.65;margin-top:12px;font-size:14px;max-width:70ch}
+
+  /* ===== caixa de compra ===== */
+  .buy{
+    position:sticky;top:96px;
+    background:
+      radial-gradient(300px 160px at 50% 0, rgba(200,168,106,.10), transparent 70%),
+      var(--plate);
+    border:1px solid var(--hair-strong);border-radius:18px;padding:26px;
+  }
+  .amount{text-align:center;display:flex;align-items:baseline;justify-content:center;gap:3px}
+  .amount .cur{color:var(--text-2);font-size:17px;font-weight:600}
+  .amount .int{font-size:46px;font-weight:800;letter-spacing:-1.5px;color:var(--gold-bright)}
+  .amount .cents{font-size:20px;font-weight:700;color:var(--gold-bright)}
+  .pix{
+    display:flex;align-items:center;justify-content:center;gap:8px;
+    margin:14px auto 22px;width:fit-content;
+    background:rgba(52,199,89,.10);border:1px solid rgba(52,199,89,.3);
+    color:var(--good-text);border-radius:999px;padding:6px 14px;font-size:13px;font-weight:600;
+  }
+  .pix .d{width:7px;height:7px;border-radius:50%;background:var(--good-text);box-shadow:0 0 8px var(--good-text)}
+  .buy .btn-gold{width:100%;padding:15px;font-size:16px;border-radius:12px}
+  .buy .btn-ghost{width:100%;margin-top:12px}
+
+  .or{display:flex;align-items:center;gap:14px;color:var(--muted);font-size:13px;margin:22px 0}
+  .or::before,.or::after{content:"";flex:1;height:1px;background:var(--hair)}
+
+  .sub-cta{
+    display:flex;align-items:center;gap:14px;
+    background:var(--gold-wash);border:1px solid rgba(200,168,106,.28);
+    border-radius:14px;padding:16px;transition:border-color .2s;
+  }
+  .sub-cta:hover{border-color:rgba(200,168,106,.55)}
+  .sub-cta .crown{
+    width:42px;height:42px;border-radius:10px;flex:none;
+    background:rgba(200,168,106,.18);display:flex;align-items:center;justify-content:center;font-size:19px;
+  }
+  .sub-cta .t{font-size:15px;font-weight:700}
+  .sub-cta .s{font-size:13px;color:var(--text-2);margin-top:2px}
+  .sub-cta .s b{color:var(--gold-bright)}
+  .sub-cta .go{margin-left:auto;color:var(--gold)}
+
+  .incl-title{font-size:11px;letter-spacing:1.4px;color:var(--muted);font-weight:600;margin:26px 0 14px;padding-top:22px;border-top:1px solid var(--hair)}
+  .incl{display:flex;align-items:center;gap:12px;font-size:14px;color:var(--text-2);padding:7px 0}
+  .incl .i{color:var(--gold);width:18px;text-align:center}
+  .trust{
+    display:flex;align-items:center;justify-content:center;gap:14px;
+    margin-top:20px;padding-top:18px;border-top:1px solid var(--hair);
+    color:var(--muted);font-size:12px;
+  }
+
+  @media(max-width:1000px){
+    .cols{grid-template-columns:1fr}
+    .buy{position:static}
+    .prod{grid-template-columns:1fr}
+    .learn{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+
+<div class="nav-wrap">
+  <nav class="nav">
+    <a href="../../index.html" class="brand">
+      <span class="ring"></span>
+      <span class="wordmark">Ergo<b>sphere</b></span>
+    </a>
+    <div class="nav-links">
+      <a href="../../index.html">Cursos</a>
+      <a href="#">Pedir Curso</a>
+      <a href="#">Assinar</a>
+      <a href="#">Afiliados</a>
+    </div>
+    <div class="nav-right">
+      <div class="search-mini">🔍 Buscar... <span class="kbd">⌘K</span></div>
+      <div class="cart">🛒</div>
+      <a href="#" class="btn-gold">Entrar →</a>
+    </div>
+  </nav>
+</div>
+
+<div class="page">
+
+  <div class="crumbs">
+    <a href="../../index.html">Início</a> <span class="sep">›</span>
+    <a href="../../index.html">Cursos</a> <span class="sep">›</span>
+    <span class="here">Marketing Digital</span>
+  </div>
+
+  <div class="cols">
+    <!-- ================= COLUNA ESQUERDA ================= -->
+    <div>
+
+      <!-- produto -->
+      <div class="panel">
+        <div class="prod">
+          <div class="shot">
+            <img src="capa.png" alt="OUTBOX CLUB — Luiggi Stecca">
+          </div>
+          <div>
+            <span class="tag">Marketing Digital</span>
+            <h1>OUTBOX CLUB</h1>
+            <div class="by">por <b>LUIGGI STECCA</b> <span class="verified">✔</span></div>
+            <p class="desc">
+              OUTBOX CLUB Luiggi Stecca: aprenda funis de vendas low ticket que rodam no
+              automático — da estruturação da oferta ao tráfego pago, copy e automações de
+              recuperação. Acesso vitalício, com atualizações semanais.
+            </p>
+          </div>
+        </div>
+        <div class="perks">
+          <div class="perk"><span class="i">∞</span> Acesso Vitalício</div>
+          <div class="perk"><span class="i">⤓</span> Downloads</div>
+          <div class="perk"><span class="i">↻</span> Atualizações Semanais</div>
+          <div class="perk"><span class="i">◎</span> Suporte</div>
+        </div>
+      </div>
+
+      <!-- conteúdo do curso -->
+      <div class="panel">
+        <div class="panel-pad" style="padding-bottom:20px">
+          <div class="sec-head">
+            <div class="sec-ico">📖</div>
+            <div>
+              <h2>Conteúdo do Curso</h2>
+              <div class="sub">Veja tudo que está incluído neste curso</div>
+            </div>
+          </div>
+          <div class="stats">
+            <span class="pill">📁 <b>8</b> módulos</span>
+            <span class="pill">▶ <b>299</b> aulas</span>
+            <span class="pill">🕐 <b>117h 24min</b></span>
+            <span class="pill">📎 <b>15</b> arquivos</span>
+          </div>
+        </div>
+        <div id="mods"></div>
+      </div>
+
+      <!-- abas -->
+      <div class="tabs">
+        <div class="tab active" data-tab="visao">💡 Visão Geral</div>
+        <div class="tab" data-tab="desc">📄 Descrição</div>
+        <div class="tab" data-tab="det">⚙ Detalhes</div>
+      </div>
+
+      <!-- VISÃO GERAL -->
+      <div class="tabpane active" id="visao">
+        <div class="panel panel-pad">
+          <div class="sec-head">
+            <div class="sec-ico">✓</div>
+            <div><h2>O que você vai aprender</h2></div>
+          </div>
+          <div class="learn">
+            <div><span class="ck">✓</span> Criar funis de vendas completos para produtos low ticket sem aparecer</div>
+            <div><span class="ck">✓</span> Dominar estratégias de tráfego pago no Facebook Ads com ROI positivo</div>
+            <div><span class="ck">✓</span> Construir páginas de vendas persuasivas que convertem público frio</div>
+            <div><span class="ck">✓</span> Desenvolver quiz vendedores que capturam leads qualificados</div>
+            <div><span class="ck">✓</span> Aplicar técnicas de copywriting para anúncios magnéticos</div>
+            <div><span class="ck">✓</span> Implementar automações de WhatsApp e email para recuperação de vendas</div>
+            <div><span class="ck">✓</span> Escalar campanhas digitais para atingir 5 dígitos mensais</div>
+          </div>
+        </div>
+
+        <div class="panel panel-pad">
+          <div class="sec-head">
+            <div class="sec-ico">🎓</div>
+            <div><h2>Sobre o Instrutor</h2></div>
+          </div>
+          <div class="teacher">
+            <div class="ava">L</div>
+            <div>
+              <h3>LUIGGI STECCA</h3>
+              <div class="role">INSTRUTOR VERIFICADO</div>
+              <p>
+                LUIGGI STECCA é estrategista digital e mentor de negócios especializado em funis
+                low ticket. Criador do método Outbox Club, já ajudou mais de 120 negócios no
+                Paraná desde 2016.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DESCRIÇÃO -->
+      <div class="tabpane" id="desc">
+        <div class="panel panel-pad">
+          <div class="sec-head">
+            <div class="sec-ico">📄</div>
+            <div><h2>Descrição</h2></div>
+          </div>
+          <p style="color:var(--text-2);line-height:1.7;margin-top:18px;font-size:15px;max-width:75ch">
+            O OUTBOX CLUB é o programa completo de Luiggi Stecca para quem quer construir funis de
+            vendas low ticket que funcionam no automático. São 8 módulos e 299 aulas cobrindo
+            estruturação de oferta, tráfego pago, copywriting, quiz funnels, páginas de vendas e
+            automações de recuperação — o mesmo método usado nos bastidores do low ticket de
+            R$ 100.000. Acesso vitalício, download dos materiais e atualizações semanais.
+          </p>
+        </div>
+      </div>
+
+      <!-- DETALHES -->
+      <div class="tabpane" id="det">
+        <div class="panel panel-pad">
+          <div class="sec-head">
+            <div class="sec-ico">⚙</div>
+            <div><h2>Detalhes</h2></div>
+          </div>
+          <div class="learn" style="grid-template-columns:1fr 1fr">
+            <div><span class="ck">▸</span> <b style="color:var(--text)">Módulos:</b>&nbsp;8</div>
+            <div><span class="ck">▸</span> <b style="color:var(--text)">Aulas:</b>&nbsp;299</div>
+            <div><span class="ck">▸</span> <b style="color:var(--text)">Duração:</b>&nbsp;117h 24min</div>
+            <div><span class="ck">▸</span> <b style="color:var(--text)">Arquivos:</b>&nbsp;15</div>
+            <div><span class="ck">▸</span> <b style="color:var(--text)">Categoria:</b>&nbsp;Marketing Digital</div>
+            <div><span class="ck">▸</span> <b style="color:var(--text)">Acesso:</b>&nbsp;Vitalício</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ================= CAIXA DE COMPRA ================= -->
+    <aside>
+      <div class="buy">
+        <div class="amount">
+          <span class="cur">R$</span><span class="int">60</span><span class="cents">,00</span>
+        </div>
+        <div class="pix"><span class="d"></span> PIX aprovação imediata</div>
+
+        <a href="#" class="btn-gold">🛒 Comprar Agora</a>
+        <a href="#" class="btn-ghost">♡ Adicionar aos favoritos</a>
+
+        <div class="or">ou</div>
+
+        <a href="#" class="sub-cta">
+          <span class="crown">👑</span>
+          <span>
+            <div class="t">Acesse todos os cursos</div>
+            <div class="s">A partir de <b>R$ 39,67</b>/mês</div>
+          </span>
+          <span class="go">→</span>
+        </a>
+
+        <div class="incl-title">ESTE CURSO INCLUI:</div>
+        <div class="incl"><span class="i">∞</span> Acesso vitalício</div>
+        <div class="incl"><span class="i">⤓</span> Download dos materiais</div>
+        <div class="incl"><span class="i">🛡</span> Compra 100% segura</div>
+
+        <div class="trust">
+          <span>🔒 SSL Seguro</span> <span>·</span> <span>⚡ Acesso Imediato</span>
+        </div>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<script>
+  // módulos visíveis no material de origem
+  const modulos = [
+    {n:"Outbox Club",  aulas:"143 aulas", dur:"70h 34min", arq:"15"},
+    {n:"Black Ads",    aulas:"47 aulas",  dur:"11h 4min"},
+    {n:"Copy Low",     aulas:"56 aulas",  dur:"11h 8min"},
+    {n:"Bastidores do Low Ticket White R$100.000", aulas:"1 aula", dur:"35min"},
+  ];
+
+  document.getElementById('mods').innerHTML = modulos.map((m,i)=>`
+    <div class="mod" data-i="${i}">
+      <div class="num">${String(i+1).padStart(2,'0')}</div>
+      <div>
+        <div class="name">${i+1}.${m.n}</div>
+        <div class="meta">
+          <span>▶ ${m.aulas}</span> <span>•</span> <span>🕐 ${m.dur}</span>
+          ${m.arq ? `<span>•</span> <span>📎 ${m.arq}</span>` : ``}
+        </div>
+      </div>
+      <div class="chev">⌄</div>
+    </div>
+    <div class="mod-body" data-b="${i}">
+      Conteúdo do módulo disponível após a compra.
+    </div>
+  `).join('');
+
+  document.querySelectorAll('.mod').forEach(el=>{
+    el.addEventListener('click',()=>{
+      const i = el.dataset.i;
+      const body = document.querySelector(`.mod-body[data-b="${i}"]`);
+      el.classList.toggle('open');
+      body.classList.toggle('open');
+    });
+  });
+
+  document.querySelectorAll('.tab').forEach(t=>{
+    t.addEventListener('click',()=>{
+      document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+      document.querySelectorAll('.tabpane').forEach(x=>x.classList.remove('active'));
+      t.classList.add('active');
+      document.getElementById(t.dataset.tab).classList.add('active');
+    });
+  });
+</script>
+
+</body>
+</html>
